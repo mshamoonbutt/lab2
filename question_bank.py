@@ -2,43 +2,34 @@
 #  Question Bank
 #    Student B
 #---------------------------------------
-
 import random
 
+# Define the categories and questions
 # Simplified example with one category. Expand as needed.
 # Simplified example with one category. Expand as needed.
 questions = {
     "Science": [
         ("What is the chemical symbol for water?", "H2O"),
-        ("Who developed the theory of relativity?","Albert Einstein"),
-        ("Which planet is known as the red planet?",  "Venus"),
-        ("What does DNA stands for?","Deoxyribonucleic Acid" )
+        ("Who developed the theory of relativity?", "Albert Einstein"),
+        ("Which planet is known as the red planet?", "Mars"),
+        ("What does DNA stand for?", "Deoxyribonucleic Acid")
     ],
-
-"General Education":[
-        ("How many time zones are there in Russia?","11"),
-        ("What’s the national flower of Japan?","Cherry Blossom"),
-        ("What’s the national animal of Australia?","Kangroo"),
-        ("How many days does it take for the Earth to orbit the Sun?", "365 ")
-
-
-
-]
-
+    "General Education": [
+        ("How many time zones are there in Russia?", "11"),
+        ("What’s the national flower of Japan?", "Cherry Blossom"),
+        ("What’s the national animal of Australia?", "Kangaroo"),
+        ("How many days does it take for the Earth to orbit the Sun?", "365")
+    ]
 }
 
 hints = {
     "Science": [
-        "hydrogen","Einstein","8th planet", "deoxyr"
-        
+        "hydrogen", "Einstein", "Mars", "deoxyribonucleic acid"
     ],
-    "General Education":[
-        "Time zones","flowers","animal","one year" 
-        
+    "General Education": [
+        "Time zones", "Flowers", "Animal", "One year"
     ]
-}    
-
-#---------------------------------------
+}
 
 def select_random_question(category):
     """
@@ -50,13 +41,8 @@ def select_random_question(category):
     Returns:
     - tuple: A tuple containing the selected question (str) and its corresponding answer (str).
     """
-    #------------------------
-    # Add your code here
-    #------------------------
     question = random.choice(questions[category])
     return question
-    #------------------------
-#---------------------------------------
 
 def check_answer(player_answer, correct_answer):
     """
@@ -69,14 +55,7 @@ def check_answer(player_answer, correct_answer):
     Returns:
     - bool: True if the answers match, False otherwise.
     """
-    #------------------------
-    # Add your code here
-    #------------------------
-    if player_answer==correct_answer:
-        return True
-    #------------------------
-
-#---------------------------------------
+    return player_answer.lower() == correct_answer.lower()
 
 def remove_question(category, question):
     """
@@ -89,13 +68,7 @@ def remove_question(category, question):
     Returns:
     - None
     """
-    #------------------------
-    # Add your code here
     questions[category] = [q for q in questions[category] if q[0] != question]
-    #------------------------
-    #------------------------
-
-#---------------------------------------
 
 def display_question_and_accept_answer(question):
     """
@@ -107,16 +80,8 @@ def display_question_and_accept_answer(question):
     Returns:
     - str: The player's answer to the question.
     """
-    #------------------------
-    # Add your code here
     print(question)
     return input("Your answer: ")
-
-    #------------------------
-
-    #------------------------
-
-#---------------------------------------
 
 def provide_hint(category, question):
     """
@@ -129,16 +94,8 @@ def provide_hint(category, question):
     Returns:
     - str: The hint for the given question.
     """
-    #------------------------
-    # Add your code here
     hint_index = questions[category].index((question, None))
     return hints[category][hint_index]
-
-    #------------------------
-
-    #------------------------
-
-#---------------------------------------
 
 def display_correct_answer(correct_answer):
     """
@@ -150,15 +107,4 @@ def display_correct_answer(correct_answer):
     Returns:
     - None
     """
-    #------------------------
-    # Add your code here
-    print("The correct answer is:", correct_answer)
-    #------------------------
-
-    #------------------------
-
-#---------------------------------------
-
-
-
-
+    print("The correct answer is:",correct_answer)
