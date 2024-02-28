@@ -1,4 +1,5 @@
-
+import random
+from question_bank import *
 #---------------------------------------
 #  Game Mechanics
 #    Student A (team lead)
@@ -12,12 +13,12 @@ def welcome_message():
     Returns: None
     """
     #------------------------
-    # Add your code here
+    print("Welcome to the Quiz Game!")
     #------------------------
-    print("Welcome to the Game")
     #------------------------
+
 #---------------------------------------
-    
+
 def choose_category(categories):
     """
     Ask the player to choose a quiz category from a list of categories.
@@ -29,18 +30,19 @@ def choose_category(categories):
     - str: The chosen category.
     """
     #------------------------
-    # Add your code here
+    print("Choose a category:")
+    for idx, category in enumerate(categories, 1):
+        print(f"{idx}. {category}")
+    choice = input("Enter the number of your choice: ")
+    while not choice.isdigit() or int(choice) not in range(1, len(categories) + 1):
+        print("Invalid input! Please enter a valid number.")
+        choice = input("Enter the number of your choice: ")
+    return categories[int(choice) - 1]
     #------------------------
-    print(categories)
-    chosen_category = input("Choose a category: ")
-    if chosen_category in categories:
-        return chosen_category
-    else:
-        print("Invalid category")
-        return choose_category(categories)
     #------------------------
-
+    
 #---------------------------------------
+    
 
 def display_score(score, round_number):
     """
@@ -53,13 +55,12 @@ def display_score(score, round_number):
     Returns: None
     """
     #------------------------
-    # Add your code here
-    #------------------------
     print(f"Score: {score} | Round: {round_number}")
+    #------------------------
     #------------------------
 
 #---------------------------------------
-    
+
 def game_over_message(final_score):
     """
     Display a "game over" message along with the player's final score.
@@ -70,13 +71,12 @@ def game_over_message(final_score):
     Returns: None
     """
     #------------------------
-    # Add your code here
-    #------------------------
     print(f"Game Over! Final Score: {final_score}")
+    #------------------------
     #------------------------
 
 #---------------------------------------
-    
+
 def run_game_rounds(categories):
     """
     Implement a basic loop to run the game for 5 rounds.
@@ -87,15 +87,27 @@ def run_game_rounds(categories):
     Returns: None
     """
     #------------------------
-    # Add your code here
+    score = 0
+    for round_number in range(1, 6):
+        print("\nRound", round_number)
+        display_score(score, round_number)
+        category = choose_category(categories)
+        question, correct_answer = select_random_question(category)
+        player_answer = display_question_and_accept_answer(question)
+        if check_answer(player_answer, correct_answer):
+            print("Correct!")
+            score += 1
+        else:
+            print("Incorrect!")
+            display_correct_answer(correct_answer)
+        remove_question(category, question)
+
+    game_over_message(score)
     #------------------------
-    for i in range(5):
-        print(categories)
-        
     #------------------------
 
 #---------------------------------------
-        
+
 def validate_answer(player_answer, correct_answer):
     """
     Validate the player's answer (correct or incorrect).
@@ -108,12 +120,8 @@ def validate_answer(player_answer, correct_answer):
     - bool: True if the player's answer is correct, False otherwise.
     """
     #------------------------
-    # Add your code here
+    return player_answer.lower() == correct_answer.lower()
     #------------------------
-    if player_answer==correct_answer:
-        return True
-    else:
-        False
     #------------------------
 
 #---------------------------------------
@@ -130,13 +138,12 @@ def update_score(score, correct):
     - int: The updated score.
     """
     #------------------------
-    # Add your code here
-    #------------------------
     if correct:
         score += 1
-    return score 
+    return score
     #------------------------
-
+    #------------------------
+    
 #---------------------------------------
 
 def next_round(round_number):
@@ -150,13 +157,12 @@ def next_round(round_number):
     - int: The next round number.
     """
     #------------------------
-    # Add your code here
-    #------------------------
     return round_number + 1
-    
     #------------------------
-
+    #------------------------
+    
 #---------------------------------------
+    
 
 def check_game_over(incorrect_answers):
     """
@@ -169,11 +175,9 @@ def check_game_over(incorrect_answers):
     - bool: True if the game should be over, False otherwise.
     """
     #------------------------
-    # Add your code here
-    #------------------------
     return incorrect_answers >= 3
     #------------------------
-
+    #------------------------
 #---------------------------------------
 
 def restart_or_exit():
@@ -184,9 +188,11 @@ def restart_or_exit():
     Returns: None
     """
     #------------------------
-    # Add your code here
+    choice = input("Do you want to restart the game? (yes/no): ")
+    if choice.lower() == "yes":
+        pass
+    else:
+        print("Thank you for playing!")
+        exit()
     #------------------------
-    pass
-    #------------------------
-
-#---------------------------------------
+    #------------------------    
